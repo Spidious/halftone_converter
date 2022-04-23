@@ -1,6 +1,7 @@
 from PIL import Image, ImageDraw
 import PIL
 import os
+import sys
 
 ########################### IMAGE SETTINGS ###########################
 
@@ -8,7 +9,9 @@ import os
 INPUT_FILE = "example.jpg"
 CLEAR_TXT = True        #delete the text files generated at completion
 
-SIZE = 40               #Number of pixels per max size circle diameter
+SIZE = 30               #Number of pixels per max size circle diameter
+OVER = 1                #Number of pixels to increase radius by (allows overlap)
+
 CYAN_ANGLE = 22.5       #Angle of the Cyan grid
 MAGENTA_ANGLE = 52.5    #Angle of the Magenta grid
 YELLOW_ANGLE = 7.5      #Angle of the Yellow grid
@@ -57,8 +60,8 @@ def makeDot(file, angle, width, height):            #put dots on image
         for x in range(int((width*2)/SIZE)):
             rad = int(file.read(2))     #read the radius character from the text file
             toss = file.read(1)         #unused variable to remove the spacees
-            #Size        Top left x-cord           Top right y-cord           Bottom left x-cord        Bottom left y-cord
-            size = [(((int(SIZE/2)-rad)+xcor), ((int(SIZE/2)-rad)+ycor)), (((int(SIZE/2)+rad)+xcor), ((int(SIZE/2)+rad)+ycor))]
+            #Size            Top left x-cord                 Top right y-cord                  Bottom left x-cord                Bottom left y-cord
+            size = [(((int(SIZE/2)-(rad+OVER))+xcor), ((int(SIZE/2)-(rad+OVER))+ycor)), (((int(SIZE/2)+(rad+OVER))+xcor), ((int(SIZE/2)+(rad+OVER))+ycor))]
             xcor+=SIZE                  #iterate xcor by SIZE
             if(rad == 0):
                 continue                #skip drawing an ellipse if radius is 0
@@ -84,36 +87,36 @@ if(not os.path.exists(path)):
     os.mkdir(path)
 
 #   Write to text files for each color (image is not currently split)
-file = open('/color codes/cyan code.txt', 'w+')
+file = open(os.path.join(sys.path[0], "color codes/cyan code.txt"), "w+")
 c = writeTXT(im, file, CYAN_ANGLE, 0, width, height)   #write the CYAN text file
 file.close()
 
-file = open('/color codes/magenta code.txt', 'w+')
+file = open(os.path.join(sys.path[0], "color codes/magenta code.txt"), "w+")
 m = writeTXT(im, file, MAGENTA_ANGLE, 1, width, height)    #write the MAGENTA text file
 file.close()
 
-file = open('/color codes/yellow code.txt', 'w+')
+file = open(os.path.join(sys.path[0], "color codes/yellow code.txt"), "w+")
 y = writeTXT(im, file, YELLOW_ANGLE, 2, width, height)    #write the YELLOW text file
 file.close()
 
-file = open('/color codes/key code.txt', 'w+')
+file = open(os.path.join(sys.path[0], "color codes/key code.txt"), "w+")
 k = writeTXT(im, file, KEY_ANGLE, 3, width, height)    #write the KEY text file
 file.close()
 
 ######## Convert to dots (dot images are rgb not cmyk)########
-file = open('/color codes/cyan code.txt', 'r')
+file = open(os.path.join(sys.path[0], 'color codes/cyan code.txt'), 'r')
 c_dot = makeDot(file, CYAN_ANGLE, width, height)
 file.close()
 
-file = open('/color codes/magenta code.txt', 'r')
+file = open(os.path.join(sys.path[0], 'color codes/magenta code.txt'), 'r')
 m_dot = makeDot(file, MAGENTA_ANGLE, width, height)
 file.close()
 
-file = open('/color codes/yellow code.txt', 'r')
+file = open(os.path.join(sys.path[0], 'color codes/yellow code.txt'), 'r')
 y_dot = makeDot(file, YELLOW_ANGLE, width, height)
 file.close()
 
-file = open('/color codes/key code.txt', 'r')
+file = open(os.path.join(sys.path[0], 'color codes/key code.txt'), 'r')
 k_dot = makeDot(file, KEY_ANGLE, width, height)
 file.close()
 
@@ -135,10 +138,10 @@ IMAGE.save("halftone.jpg")
 
 #   Check to remove text files or to keep them
 if(CLEAR_TXT):
-    os.remove("/color codes/cyan code.txt")
-    os.remove("/color codes/magenta code.txt")
-    os.remove("/color codes/yellow code.txt")
-    os.remove("/color codes/key code.txt")
+    os.remove(os.path.join(sys.path[0], "color codes/cyan code.txt"))
+    os.remove(os.path.join(sys.path[0], "color codes/magenta code.txt"))
+    os.remove(os.path.join(sys.path[0], "color codes/yellow code.txt"))
+    os.remove(os.path.join(sys.path[0], "color codes/key code.txt"))
 
 #   Completion confirmation
 print("Done!")
