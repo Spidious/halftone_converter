@@ -2,6 +2,7 @@
 Converts images into CMYK halftone dot images
 
 HEIC currently not supported
+
 Requires PIL to be installed :   python3 -m pip install --upgrade Pillow
 
 Change these settings in IMAGE SETTINGS for easy final image alteration
