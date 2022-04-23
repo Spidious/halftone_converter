@@ -6,7 +6,6 @@ import os
 
 #set the input image (if not in same folder set file path)
 INPUT_FILE = "example.jpg"
-
 CLEAR_TXT = True        #delete the text files generated at completion
 
 SIZE = 20               #Number of pixels per max size circle diameter
