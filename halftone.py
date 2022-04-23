@@ -4,7 +4,7 @@ import PIL
 ########################### IMAGE SETTINGS ###########################
 
 #set the input image (if not in same folder set file path)
-INPUT_FILE = "sokka.JPEG"
+INPUT_FILE = "example.jpg"
 
 SIZE = 20           #Number of pixels per max size circle diameter
 CYAN_ANGLE = 22.5    #Angle of the Cyan grid
