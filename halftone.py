@@ -8,7 +8,7 @@ import os
 INPUT_FILE = "example.jpg"
 CLEAR_TXT = True        #delete the text files generated at completion
 
-SIZE = 20               #Number of pixels per max size circle diameter
+SIZE = 40               #Number of pixels per max size circle diameter
 CYAN_ANGLE = 22.5       #Angle of the Cyan grid
 MAGENTA_ANGLE = 52.5    #Angle of the Magenta grid
 YELLOW_ANGLE = 7.5      #Angle of the Yellow grid
