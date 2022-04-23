@@ -79,37 +79,42 @@ im = Image.open(INPUT_FILE)
 cmyk_image = im.convert('CMYK')
 width,height = im.size
 
+#create text file directory
+path = 'color codes'
+if(not os.path.exists(path)):
+    os.mkdir(path)
+
 #   Write to text files for each color (image is not currently split)
-file = open('cyan code.txt', 'w+')
+file = open('/color codes/cyan code.txt', 'w+')
 c = writeTXT(im, file, CYAN_ANGLE, 0, width, height)   #write the CYAN text file
 file.close()
 
-file = open('magenta code.txt', 'w+')
+file = open('/color codes/magenta code.txt', 'w+')
 m = writeTXT(im, file, MAGENTA_ANGLE, 1, width, height)    #write the MAGENTA text file
 file.close()
 
-file = open('yellow code.txt', 'w+')
+file = open('/color codes/yellow code.txt', 'w+')
 y = writeTXT(im, file, YELLOW_ANGLE, 2, width, height)    #write the YELLOW text file
 file.close()
 
-file = open('key code.txt', 'w+')
+file = open('/color codes/key code.txt', 'w+')
 k = writeTXT(im, file, KEY_ANGLE, 3, width, height)    #write the KEY text file
 file.close()
 
 ######## Convert to dots (dot images are rgb not cmyk)########
-file = open('cyan code.txt', 'r')
+file = open('/color codes/cyan code.txt', 'r')
 c_dot = makeDot(file, CYAN_ANGLE, width, height)
 file.close()
 
-file = open('magenta code.txt', 'r')
+file = open('/color codes/magenta code.txt', 'r')
 m_dot = makeDot(file, MAGENTA_ANGLE, width, height)
 file.close()
 
-file = open('yellow code.txt', 'r')
+file = open('/color codes/yellow code.txt', 'r')
 y_dot = makeDot(file, YELLOW_ANGLE, width, height)
 file.close()
 
-file = open('key code.txt', 'r')
+file = open('/color codes/key code.txt', 'r')
 k_dot = makeDot(file, KEY_ANGLE, width, height)
 file.close()
 
@@ -131,10 +136,10 @@ IMAGE.save("halftone.jpg")
 
 #   Check to remove text files or to keep them
 if(CLEAR_TXT):
-    os.remove("cyan code.txt")
-    os.remove("magenta code.txt")
-    os.remove("yellow code.txt")
-    os.remove("key code.txt")
+    os.remove("/color codes/cyan code.txt")
+    os.remove("/color codes/magenta code.txt")
+    os.remove("/color codes/yellow code.txt")
+    os.remove("/color codes/key code.txt")
 
 #   Completion confirmation
 print("Done!")
