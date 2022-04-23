@@ -1,16 +1,19 @@
 from PIL import Image, ImageDraw
 import PIL
+import os
 
 ########################### IMAGE SETTINGS ###########################
 
 #set the input image (if not in same folder set file path)
 INPUT_FILE = "example.jpg"
 
-SIZE = 20           #Number of pixels per max size circle diameter
-CYAN_ANGLE = 22.5    #Angle of the Cyan grid
-MAGENTA_ANGLE = 52.5  #Angle of the Magenta grid
-YELLOW_ANGLE = 7.5   #Angle of the Yellow grid
-KEY_ANGLE = 82.5      #Angle of the Key grid (basically black)
+CLEAR_TXT = True        #delete the text files generated at completion
+
+SIZE = 20               #Number of pixels per max size circle diameter
+CYAN_ANGLE = 22.5       #Angle of the Cyan grid
+MAGENTA_ANGLE = 52.5    #Angle of the Magenta grid
+YELLOW_ANGLE = 7.5      #Angle of the Yellow grid
+KEY_ANGLE = 82.5        #Angle of the Key grid (basically black)
 
 ########################### writeTXT ######################################
 
@@ -125,6 +128,13 @@ BLACK = Image.Image.split(k_dot)
 #   Merge each color into one image
 IMAGE = Image.merge('CMYK', (CYAN[0], MAGENTA[1], YELLOW[2], BLACK[3]))
 IMAGE.save("halftone.jpg")
+
+#   Check to remove text files or to keep them
+if(CLEAR_TXT):
+    os.remove("cyan code.txt")
+    os.remove("magenta code.txt")
+    os.remove("yellow code.txt")
+    os.remove("key code.txt")
 
 #   Completion confirmation
 print("Done!")
